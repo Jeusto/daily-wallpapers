@@ -5,4 +5,4 @@ Made with React & Chakraui.
 
 Try it here: https://daily-wallpapers.vercel.app/
 
-![demo](https://i.imgur.com/vClGGGX.gif)
+![demo](./public/demo.gif)
