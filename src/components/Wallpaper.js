@@ -12,6 +12,7 @@ import {
   Link,
 } from '@chakra-ui/react';
 import ModalWallpaper from './ModalWallpaper';
+import './wallpaper.css';
 
 export default function Wallpaper({ title, image, width, height }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -19,14 +20,7 @@ export default function Wallpaper({ title, image, width, height }) {
   const { colorMode } = useColorMode();
 
   return (
-    <Box
-      _hover={{
-        transition: '200ms ',
-        transform: 'scale(1.05) ',
-      }}
-      m="2rem"
-      w="40rem"
-    >
+    <Box className="wallpaper" m="2rem" w="40rem">
       <ModalWallpaper
         isOpen={isOpen}
         onClose={onClose}
@@ -40,6 +34,7 @@ export default function Wallpaper({ title, image, width, height }) {
           overflow="hidden"
           borderRadius="0.75rem"
           boxShadow="lg"
+          bgColor="gray"
         >
           <Image src={image} alt="" />
           <Tag

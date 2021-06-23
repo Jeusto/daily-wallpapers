@@ -18,7 +18,7 @@ export default function App() {
         <Image src={logo} width="3rem"></Image>
         <Text
           marginLeft="1rem"
-          bgGradient="linear(to-r, #0F8DDC, #50E6FF)"
+          bgGradient="linear(to-r, #3dc5db,  #50E6FF)"
           bgClip="text"
           fontSize="2rem"
           fontWeight="700"

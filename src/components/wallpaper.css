@@ -1,0 +1,6 @@
+.wallpaper {
+  transition: 150ms ease-in-out;
+}
+.wallpaper:hover {
+  transform: scale(1.05);
+}
