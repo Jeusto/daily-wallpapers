@@ -6,7 +6,6 @@ export const ThemeSwitch = props => {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FiMoon, FiSun);
-
   return (
     <IconButton
       size="md"

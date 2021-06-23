@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from 'react';
-import { ThemeSwitch } from './ThemeSwitch';
-import { theme, ChakraProvider, Flex } from '@chakra-ui/react';
-import Wallpaper from './components/Wallpaper';
+import { ThemeSwitch } from './components/ThemeSwitch';
+import { ChakraProvider, Flex } from '@chakra-ui/react';
+import WallpaperList from './components/WallpaperList';
+import theme from './theme';
 
 export default function App() {
   const [wallpapers, setWallpapers] = useState([]);
@@ -64,7 +65,7 @@ export default function App() {
       >
         {' '}
         {wallpapers.map(el => (
-          <Wallpaper
+          <WallpaperList
             onMouseEnter={e => showButtons(e)}
             onMouseLeave={e => hideButtons(e)}
             display={displayButtons}
@@ -74,7 +75,7 @@ export default function App() {
             image={el.image}
             width={el.width}
             height={el.height}
-          ></Wallpaper>
+          ></WallpaperList>
         ))}{' '}
       </Flex>
     </ChakraProvider>
