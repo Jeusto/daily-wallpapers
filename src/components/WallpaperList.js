@@ -1,24 +1,51 @@
 import { React, useEffect, useState } from 'react';
-import { Flex, Spinner, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  Spinner,
+  Button,
+  Box,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import Wallpaper from './Wallpaper';
 
 export default function WallpaperList() {
   const [loading, setLoading] = useState(true);
   const [wallpapers, setWallpapers] = useState([]);
+  const [category, setCategory] = useState('top/.json?t=day');
 
-  // When dom loads
+  // When category changes, load new wallpapers
   useEffect(() => {
-    const getWallpapers = async () => {
-      const wallpapersFromApi = await fetchWallpapers(
-        'https://www.reddit.com/r/wallpaper/top/.json?t=day'
-      );
+    displayWallpapers();
+  }, [category]);
 
-      wallpapersFromApi.data.children.forEach((el, i) => {
-        if (!el.data.is_gallery) {
+  // Change category
+  function changeCategory(arg) {
+    setCategory(arg);
+  }
+
+  // Display wallpapers
+  function displayWallpapers() {
+    // Reset wallpapers list
+    setWallpapers([]);
+
+    // Get wallpapers from first subreddit
+    const getWallpapers = async () => {
+      console.log(`https://www.reddit.com/r/wallpaper/${category}`);
+      const wallpapersFromApi = await fetchWallpapers(
+        `https://www.reddit.com/r/wallpaper/${category}`
+      );
+      // Add to list
+      wallpapersFromApi.data.children.forEach(el => {
+        if (el.data.is_gallery || el.data.crosspost_parent_list !== undefined) {
+          return;
+        } else {
           let currentWallpaper = {
-            id: el.data.created,
+            key: Math.floor(Math.random() * 1000000),
             title: el.data.title,
-            score: el.data.score,
             image: el.data.url,
             width: el.data.preview.images[0].source.width,
             height: el.data.preview.images[0].source.height,
@@ -27,16 +54,18 @@ export default function WallpaperList() {
         }
       });
 
+      // Get wallpapers from second subreddit
       const wallpapersFromApi2 = await fetchWallpapers(
-        'https://www.reddit.com/r/wallpapers/top/.json?t=day'
+        `https://www.reddit.com/r/wallpapers/${category}`
       );
-
-      wallpapersFromApi2.data.children.forEach((el, i) => {
-        if (!el.data.is_gallery) {
+      // Add to list
+      wallpapersFromApi2.data.children.forEach(el => {
+        if (el.data.is_gallery || el.data.crosspost_parent_list !== undefined) {
+          return;
+        } else {
           let currentWallpaper = {
-            id: el.data.created,
+            key: Math.floor(Math.random() * 1000000),
             title: el.data.title,
-            score: el.data.score,
             image: el.data.url,
             width: el.data.preview.images[0].source.width,
             height: el.data.preview.images[0].source.height,
@@ -48,39 +77,82 @@ export default function WallpaperList() {
 
     setLoading(true);
     getWallpapers();
-  }, []);
+  }
 
   // Fetch wallpapers from api
   const fetchWallpapers = async url => {
     const res = await fetch(url);
     const data = await res.json();
-    setLoading(false);
 
+    setLoading(false);
     return data;
   };
 
   return (
-    <Flex justifyContent="center" alignItems="center" flexWrap="wrap">
-      {loading ? (
-        <Spinner size="xl" />
-      ) : (
-        wallpapers.map(el => (
-          <Wallpaper
-            key={el.id}
-            title={el.title}
-            image={el.image}
-            width={el.width}
-            height={el.height}
-          ></Wallpaper>
-        ))
-      )}
-      {!loading ? (
-        <Text mb="2rem" width="100%" textAlign="center" fontSize="2xl">
-          Come back tomorrow for more :)
-        </Text>
-      ) : (
-        ''
-      )}
-    </Flex>
+    <>
+      <Flex
+        w="25rem"
+        margin="auto"
+        marginTop="1rem"
+        justifyContent="space-around"
+        alignItems="center"
+        flexWrap="wrap"
+      >
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            Top wallpapers
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => changeCategory('.json?t=hour')}>
+              Hour
+            </MenuItem>
+            <MenuItem onClick={() => changeCategory('top/.json?t=day')}>
+              Today
+            </MenuItem>
+            <MenuItem onClick={() => changeCategory('top/.json?t=week')}>
+              This week
+            </MenuItem>
+            <MenuItem onClick={() => changeCategory('top/.json?t=month')}>
+              This month
+            </MenuItem>
+            <MenuItem onClick={() => changeCategory('top/.json?t=year')}>
+              This year
+            </MenuItem>
+            <MenuItem onClick={() => changeCategory('top/.json?t=all')}>
+              Top of all time
+            </MenuItem>
+          </MenuList>
+        </Menu>
+        <Menu closeOnSelect>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            Other categories
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => changeCategory('hot.json')}>Hot</MenuItem>
+            <MenuItem onClick={() => changeCategory('new.json')}>New</MenuItem>
+            <MenuItem onClick={() => changeCategory('rising.json')}>
+              Rising
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Flex>
+      <Flex justifyContent="center" alignItems="center" flexWrap="wrap">
+        {loading ? (
+          <Box width="100vw" height="100vh" display="grid" placeItems="center">
+            <Spinner size="xl" />
+          </Box>
+        ) : (
+          wallpapers.map(el => (
+            <Wallpaper
+              key={el.key}
+              title={el.title}
+              image={el.image}
+              width={el.width}
+              height={el.height}
+            ></Wallpaper>
+          ))
+        )}
+      </Flex>
+    </>
   );
 }
