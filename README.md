@@ -1,8 +1,8 @@
 # Daily Wallpapers
 
-A simple website to navigate through all the top backgrounds/wallpapers posted on Reddit every day and download them easily.
-Made with React & Chakraui.
+A simple website to navigate through all the top wallpapers/backgrounds posted on Reddit every day and download them easily.
+Made with React & ChakraUI.
 
-Try it here: https://daily-wallpapers.vercel.app/
+https://daily-wallpapers.vercel.app/
 
 ![demo](./public/demo.gif)
