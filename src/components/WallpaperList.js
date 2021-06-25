@@ -8,8 +8,9 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  IconButton,
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import Wallpaper from './Wallpaper';
 
 export default function WallpaperList() {
@@ -99,7 +100,10 @@ export default function WallpaperList() {
         flexWrap="wrap"
       >
         <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon marginTop="0.3rem" />}
+          >
             Top wallpapers
           </MenuButton>
           <MenuList>
@@ -123,8 +127,11 @@ export default function WallpaperList() {
             </MenuItem>
           </MenuList>
         </Menu>
-        <Menu closeOnSelect>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon marginTop="0.3rem" />}
+          >
             Other categories
           </MenuButton>
           <MenuList>
@@ -151,6 +158,27 @@ export default function WallpaperList() {
               height={el.height}
             ></Wallpaper>
           ))
+        )}
+      </Flex>
+      <Flex>
+        {loading ? (
+          ''
+        ) : (
+          <IconButton
+            size="md"
+            fontSize="2xl"
+            position="fixed"
+            right="5"
+            bottom="5"
+            margin="auto"
+            borderRadius="0.5rem"
+            aria-label={`Scroll to top`}
+            variant="ghost"
+            icon={<ArrowUpIcon />}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          ></IconButton>
         )}
       </Flex>
     </>

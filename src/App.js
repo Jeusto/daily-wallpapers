@@ -10,8 +10,8 @@ export default function App() {
     <ChakraProvider theme={theme}>
       <ThemeSwitch
         position="absolute"
-        right="5"
-        top="5"
+        right="1rem"
+        top="1rem"
         borderRadius="0.5rem"
       />
       <Flex pt="2rem" justifyContent="center" alignItems="center">
