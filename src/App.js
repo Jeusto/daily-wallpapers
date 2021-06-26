@@ -7,10 +7,10 @@ import logo from './logo.svg';
 
 export default function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider width="1rem" theme={theme}>
       <ThemeSwitch
         position="absolute"
-        right="1rem"
+        right="2rem"
         top="1rem"
         borderRadius="0.5rem"
       />
