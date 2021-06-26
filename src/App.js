@@ -20,7 +20,7 @@ export default function App() {
           marginLeft="1rem"
           bgGradient="linear(to-r, #3dc5db,  #50E6FF)"
           bgClip="text"
-          fontSize="2rem"
+          fontSize={{ base: '1.4rem', md: '2rem' }}
           fontWeight="700"
         >
           Daily wallpapers

@@ -22,7 +22,7 @@ export default function Wallpaper({ title, image, width, height }) {
 
   return (
     <Fade triggerOnce>
-      <Box className="wallpaper" m="2rem" w="40rem">
+      <Box className="wallpaper" m="2rem" w={['18rem', '25rem', '40rem']}>
         <ModalWallpaper
           isOpen={isOpen}
           onClose={onClose}

@@ -92,9 +92,10 @@ export default function WallpaperList() {
   return (
     <>
       <Flex
-        w="25rem"
+        w={['100%', '25rem']}
         margin="auto"
         marginTop="1rem"
+        flexDirection={{ base: 'column', sm: 'row' }}
         justifyContent="space-around"
         alignItems="center"
         flexWrap="wrap"
@@ -129,6 +130,7 @@ export default function WallpaperList() {
         </Menu>
         <Menu>
           <MenuButton
+            marginTop={['1rem', '0rem']}
             as={Button}
             rightIcon={<ChevronDownIcon marginTop="0.3rem" />}
           >
