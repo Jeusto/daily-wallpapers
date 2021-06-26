@@ -35,7 +35,6 @@ export default function WallpaperList() {
 
     // Get wallpapers from first subreddit
     const getWallpapers = async () => {
-      console.log(`https://www.reddit.com/r/wallpaper/${category}`);
       const wallpapersFromApi = await fetchWallpapers(
         `https://www.reddit.com/r/wallpaper/${category}`
       );
@@ -61,7 +60,11 @@ export default function WallpaperList() {
       );
       // Add to list
       wallpapersFromApi2.data.children.forEach(el => {
-        if (el.data.is_gallery || el.data.crosspost_parent_list !== undefined) {
+        if (
+          el.data.is_gallery ||
+          el.data.crosspost_parent_list !== undefined ||
+          el.data.preview === undefined
+        ) {
           return;
         } else {
           let currentWallpaper = {
