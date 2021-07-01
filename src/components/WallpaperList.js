@@ -40,7 +40,11 @@ export default function WallpaperList() {
       );
       // Add to list
       wallpapersFromApi.data.children.forEach(el => {
-        if (el.data.is_gallery || el.data.crosspost_parent_list !== undefined) {
+        if (
+          el.data.is_gallery ||
+          el.data.crosspost_parent_list !== undefined ||
+          el.data.domain === 'imgur.com'
+        ) {
           return;
         } else {
           let currentWallpaper = {
